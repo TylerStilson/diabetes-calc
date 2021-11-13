@@ -11,53 +11,42 @@ class MyRequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(bytes("Not Found", "utf-8"))
 
+    # def end_headers(self):                           #send cookies to client first
+    #     self.send_header("Access-Control-Allow-Origin", self.headers["Origin"])
+    #     self.send_header("Access-Control-Allow-Credentials", "true")
+    #     BaseHTTPRequestHandler.end_headers(self)    #call the original end_headers()
 
 
-
-    def handleRegister(self):
-        length = int(self.headers["Content-Length"])
-        request_body = self.rfile.read(length).decode("utf-8")
-        parsed_body = parse_qs(request_body)
-
-        auth_fName = parsed_body['fName'][0]
-        auth_lName = parsed_body['lName'][0]
-        auth_email = parsed_body['email'][0]
-        auth_password = parsed_body['password'][0]
-        
+    def handleCreateTable(self):
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.end_headers()
 
         db = BetesDB()
-        db.createUser(auth_fName, auth_lName, auth_email, auth_password )
+        db.createCalcTable()
 
         self.send_response(201)
         self.send_header("Content-Type", "application/json")
         self.end_headers()
 
     
-    def verifyUser(self):
-        
-        length = int(self.headers["Content-Length"])
-        request_body = self.rfile.read(length).decode("utf-8")
-        parsed_body = parse_qs(request_body)
+    def handleDeleteTable(self):
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.end_headers()
 
-        user_email = parsed_body['email'][0]
-        user_password = parsed_body['password'][0]
-            
         db = BetesDB()
-        user = db.GetUser(user_email, user_password)
+        db.deleteCalcTable()
 
-        if user == False:
-            #make 401 error
-            self.handle401()
-
-        else:
-            self.send_response(201)
-            # save user ID into the session data
-            self.sessionData["userId"] = user["id"]
-            self.end_headers()
-            print("true")
+        self.send_response(201)
+        self.send_header("Content-Type", "application/json")
+        self.end_headers()
 
 
-    def handleListCalcVar(self):
+
+    def handleRetrieveCalc(self):
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
         self.send_header("Access-Control-Allow-Origin", "*")
@@ -79,20 +68,15 @@ class MyRequestHandler(BaseHTTPRequestHandler):
         #step 3
         parsed_body = parse_qs(request_body)
         #step 4
-        u_correction_factor = parsed_body['correction_factor'][0]
-        u_correction_variable = parsed_body['priority'][0]
-        u_icr_ratio = parsed_body['icr_ration'][0]
-        u_long_lasting_one = parsed_body['long_lasting_one'][0]
-        u_bs_high = parsed_body['bs_high'][0]
-        u_bs_low = parsed_body['bs_low'][0]
-        u_bs_target = parsed_body['bs_target'][0]
-        u_precision = parsed_body['precision'][0]
-        u_iob = parsed_body['iob'][0]
-        u_duration = parsed_body['duration'][0]
+        bs_target = parsed_body['bs_target'][0]
+        corr_factor = parsed_body['corr_factor'][0]
+        carb_ratio = parsed_body['carb_ratio'][0]
+        precision = parsed_body['precision'][0]
+        
         #TO_DO.append(task)
         #dummy db
         db = BetesDB()
-        db.createCalculations(u_correction_factor, u_correction_variable, u_icr_ratio, u_long_lasting_one, u_bs_high, u_bs_low, u_bs_target, u_precision, u_iob, u_duration)
+        db.createCalculations(bs_target, corr_factor, carb_ratio, precision)
 
         #respond to client
         self.send_response(201)
@@ -101,31 +85,72 @@ class MyRequestHandler(BaseHTTPRequestHandler):
 
 
     def handleUpdateCalc(self, task_id):
-        db=BetesDB()
-        calcRecord = db.getCalculation(task_id)
+        db = BetesDB()
 
-        if calcRecord != None:
+        length = int(self.headers["Content-Length"])
+        request_body = self.rfile.read(length).decode("utf-8")
+        parsed_body = parse_qs(request_body)
 
-            length = int(self.headers["Content-Length"])
-            request_body = self.rfile.read(length).decode("utf-8")
-            parsed_body = parse_qs(request_body)
+        bs_target = parsed_body['bs_target'][0]
+        corr_factor = parsed_body['corr_factor'][0]
+        carb_ratio = parsed_body['carb_ratio'][0]
+        precision = parsed_body['precision'][0]
 
-            u_correction_factor = parsed_body['correction_factor'][0]
-            u_correction_variable = parsed_body['priority'][0]
-            u_icr_ratio = parsed_body['icr_ration'][0]
-            u_long_lasting_one = parsed_body['long_lasting_one'][0]
-            u_bs_high = parsed_body['bs_high'][0]
-            u_bs_low = parsed_body['bs_low'][0]
-            u_bs_target = parsed_body['bs_target'][0]
-            u_precision = parsed_body['precision'][0]
-            u_iob = parsed_body['iob'][0]
-            u_duration = parsed_body['duration'][0]
+        db.updateCalc(bs_target, corr_factor, carb_ratio, precision)
 
-            db.updateCalc(u_correction_factor, u_correction_variable, u_icr_ratio, u_long_lasting_one, u_bs_high, u_bs_low, u_bs_target, u_precision, u_iob, u_duration)
+        self.send_response(201)
+        #self.send_header("Content-Type", "application/json")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.end_headers()
 
-            self.send_response(201)
-            #self.send_header("Content-Type", "application/json")
-            self.send_header("Access-Control-Allow-Origin", "*")
-            self.end_headers()
+
+    def do_OPTIONS(self):
+        self.loadSession()
+        self.send_response(204)
+        #self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.end_headers()
+
+
+    def do_GET(self):
+        print("request path is:", self.path)
+        if collection == "calculations":
+            self.handleRetrieveCalc()
+            
         else:
             self.handleNotFound()
+
+
+
+
+    def do_POST(self):
+        print("request path is:", self.path)
+        if self.path == "/setup_calc":
+            self.handleCreateCalc
+        else:
+            self.handleNotFound()
+
+
+
+
+    def main ():
+    #change 
+    #to pull port from heroku
+    db = BetesDB()
+    db.deleteCalcTable
+    db.createCalcTable
+    db = None
+
+    port = 8080
+    if len(sys.argv) > 1:
+        port = int(sys.argv[1])
+
+    listen = ("0.0.0.0", port)
+    server = HTTPServer(listen, MyRequestHandler)
+    print("the server is running!")
+    server.serve_forever()
+    print("This will never, ever execute.")
+
+main()
+        
