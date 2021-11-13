@@ -1,15 +1,3 @@
-CREATE TABLE user (
-    id SERIAL PRIMARY KEY,
-    fName VARCHAR(50) NOT NULL,
-    lName VARCHAR(50)  NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    password VARCHAR(2500) NOT NULL,
-    dob VARCHAR(50) NOT NULL,
-    sex VARCHAR(50) NOT NULL,
-    weight INTEGER(10) NOT NULL,
-    height INTEGER(10) NOT NULL
-)
-
 CREATE TABLE calc (
     health_id REFERENCES users(id),
     correction_factor INT(10) NOT NULL,
