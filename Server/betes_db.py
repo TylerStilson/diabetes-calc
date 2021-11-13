@@ -1,4 +1,6 @@
 import sqlite3
+from passlib.hash import bcrypt
+import urllib.parse
 
 def dict_factory(cursor, row):
     d = {}
@@ -36,18 +38,14 @@ class BetesDB:
 
     
     # user queries
-    def createUser(fName, lName, email, password, dob, sex, weight, height):
+    def createUser(fName, lName, email, password ):
         hashpass = bcrypt.hash(password)
-        data = [fName, lName, email, password, dob, sex, weight, height, hashpass]
-        self.cursor.execute("INSERT INTO users (fName, lName, email, password, dob, sex, weight, height) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", data)
+        data = [fName, lName, email, hashpass]
+        self.cursor.execute("INSERT INTO users (fName, lName, email, password ) VALUES (?, ?, ?, ?)", data)
         self.connection.commit()
         return
 
-    def getUserData(self):
-        data = [user_id]
-        self.cursor.execute("SELECT * FROM calc WHERE id = ?", data)
-        user = self.cursor.fetchone()
-        return
+    
 
     def GetUser(self, email, password):
         data = [email]

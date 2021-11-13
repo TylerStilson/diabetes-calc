@@ -23,13 +23,10 @@ class MyRequestHandler(BaseHTTPRequestHandler):
         auth_lName = parsed_body['lName'][0]
         auth_email = parsed_body['email'][0]
         auth_password = parsed_body['password'][0]
-        auth_dob = parsed_body['dob'][0]
-        auth_sex = parsed_body['sex'][0]
-        auth_weight = parsed_body['weight'][0]
-        auth_height = parsed_body['height'][0]
+        
 
         db = BetesDB()
-        db.createUser(auth_fName, auth_lName, auth_email, auth_password, auth_dob, auth_sex, auth_weight, auth_height )
+        db.createUser(auth_fName, auth_lName, auth_email, auth_password )
 
         self.send_response(201)
         self.send_header("Content-Type", "application/json")
