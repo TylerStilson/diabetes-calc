@@ -18,7 +18,7 @@ class Settings extends Component {
             carbRatio: '',
             precision: ''
         }
-    }
+    }    
 
     changeHandler = e => {
         this.setState({
