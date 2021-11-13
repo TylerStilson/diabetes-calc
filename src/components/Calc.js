@@ -11,7 +11,8 @@ class Calc extends Component {
       this.state = {
         bloodGlucose: '',
         carbs: '',
-        meal: true
+        meal: true,
+        result: ''
       }
     }
 
@@ -36,9 +37,9 @@ class Calc extends Component {
     render() {
       return (
         <main>
-          <div className='result'>
-            <h1 className='h1'>7 units</h1>
-          </div>
+          
+          <h1 className='h4'>7 units</h1>
+          
           <img className='calculator' src={ calculator } alt='calculator'/>
           { this.state.meal ? 
           <form className='form2'>
@@ -78,7 +79,7 @@ class Calc extends Component {
           </form>
         }
         <div className='space'> </div>
-        <Link to='/'><Button className='saveB' variant="contained" type='submit'>DONE</Button></Link>
+        <Link to='/'><Button className='saveB' variant="contained" type='submit' onClick={ this.showTotal }>DONE</Button></Link>
         <div className='space'> </div>
         </main>
       )
