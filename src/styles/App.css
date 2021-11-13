@@ -191,8 +191,16 @@
   grid-row: 4/5;
   grid-column: 2/-2;
   margin-top: 50px;
+
 }
-.result {
-  height: 125px;
-  background-color: #65CAEB;
+
+
+
+.h4 {
+  font-size: 72px;
+  line-height: 30px;
+  text-align: center;
+  font-family: 'Montserrat';
+  margin-top: 40px;
+  display: none;
 }
