@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
+import { Link } from 'react-router-dom';
 
 class Settings extends Component {
     constructor() {
@@ -28,7 +29,8 @@ class Settings extends Component {
 
     render() {
         return (
-            <div>
+            <div className='main'>
+                <div className='center'>
                 <img className='whiteCalc' src={ whiteCalc } alt='whiteCalc'/>
                 <form onSubmit={ this.calculate }>
                     <h1>Calculation Settings</h1>
@@ -39,19 +41,22 @@ class Settings extends Component {
                                 placeholder='120 mg/dL'
                                 name='glucose'
                                 value={this.state.glucose}
-                                onChange={this.changeHandler}/>
+                                onChange={this.changeHandler}
+                                style={{width: '350px'}}/>
                     <h2>What is your correction factor?</h2>
                     <TextField  type='text'
                                 placeholder='1u: 45 mg/dL'
                                 name='correctionFactor'
                                 value={this.state.correctionFactor}
-                                onChange={this.changeHandler}/>
+                                onChange={this.changeHandler}
+                                style={{width: '350px'}}/>
                     <h2>What is the carb ratio used for a food bolus?</h2>
                     <TextField  type='text'
                                 placeholder='1u: 15 mg/dL'
                                 name='carbRatio'
                                 value={this.state.carbRatio}
-                                onChange={this.changeHandler}/>
+                                onChange={this.changeHandler}
+                                style={{width: '350px'}}/>
                     <h2>How precise is your insulin dosage?</h2>
                     <FormControl sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel id="demo-simple-select-helper-label">Precision</InputLabel>
@@ -61,6 +66,7 @@ class Settings extends Component {
                             value={this.state.precision}
                             label="Precision"
                             onChange={this.changeHandler}
+                            style={{width: '350px'}}
                         >
                         <MenuItem value="">
                         </MenuItem>
@@ -69,8 +75,9 @@ class Settings extends Component {
                         <MenuItem value={0.25}>0.25 unit</MenuItem>
                         </Select>
                     </FormControl>
-                    <Button variant="contained" type='submit'>SAVE</Button>
+                    <Link to='/'><Button variant="contained" type='submit'>SAVE</Button></Link>
                 </form>
+                </div>
             </div>
         )
     }
