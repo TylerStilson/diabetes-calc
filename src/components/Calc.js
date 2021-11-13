@@ -35,21 +35,26 @@ class Calc extends Component {
   
     render() {
       return (
-        <div>
+        <main>
+          <div className='result'>
+            <h1 className='h1'>7 units</h1>
+          </div>
           <img className='calculator' src={ calculator } alt='calculator'/>
           { this.state.meal ? 
-          <form>
-            <h1>What is this calculation for?</h1>
-            <Button variant="outlined" onClick={ this.toggleMealOn }>Meal</Button>
-            <Button variant="outlined" onClick={ this.toggleMealOff }>Correction</Button>
-            <h1>What is your current Blood Glucose?</h1>
+          <form className='form2'>
+            <h1 className='h3'>What is this calculation for?</h1>
+            <div className='buttonO'>
+              <Button className='meal' variant="outlined" onClick={ this.toggleMealOn }>Meal</Button>
+              <Button className='corr' variant="outlined" onClick={ this.toggleMealOff }>Correction</Button>
+            </div>
+            <h1 className='h3'>What is your current Blood Glucose?</h1>
             <TextField  type='text'
                         placeholder='120 mg/dL'
                         name='bsLow'
                         value={this.state.bloodGlucose}
                         onChange={this.changeHandler}
                         style={{width: '350px'}}/>
-            <h1>What is the total amount of carbs in your meal?</h1>
+            <h1 className='h3'>What is the total amount of carbs in your meal?</h1>
             <TextField  type='text'
                         placeholder='____ grams'
                         name='carbs'
@@ -59,10 +64,12 @@ class Calc extends Component {
           </form>
           :
           <form>
-            <h1>What is this calculation for?</h1>
-            <Button variant="outlined" onClick={ this.toggleMealOn }>Meal</Button>
-            <Button variant="outlined" onClick={ this.toggleMealOff }>Correction</Button>
-            <h1>What is your current Blood Glucose?</h1>
+            <h1 className='h3'>What is this calculation for?</h1>
+            <div className='buttonO'>
+              <Button className='meal' variant="outlined" onClick={ this.toggleMealOn }>Meal</Button>
+              <Button className='corr' variant="outlined" onClick={ this.toggleMealOff }>Correction</Button>
+            </div>
+            <h1 className='h3'>What is your current Blood Glucose?</h1>
             <TextField  type='text'
                         placeholder='120 mg/dL'
                         name='bsLow'
@@ -70,8 +77,10 @@ class Calc extends Component {
                         onChange={this.changeHandler}/>
           </form>
         }
-        <Link to='/'><Button variant="contained" type='submit'>DONE</Button></Link>
-        </div>
+        <div className='space'> </div>
+        <Link to='/'><Button className='saveB' variant="contained" type='submit'>DONE</Button></Link>
+        <div className='space'> </div>
+        </main>
       )
     }
   }
