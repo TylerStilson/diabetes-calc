@@ -36,3 +36,163 @@
     transform: rotate(360deg);
   }
 }
+
+.main {
+  /* width: 100vw;
+  height: 100vh; */
+  font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', Roboto, Source Sans Pro, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: grid;
+  grid-template-columns: minmax(0px,24px) repeat(6, minmax(0,175px)) minmax(0px,24px);
+}
+
+.logo {
+  /* width: 152px;
+  height: 152px; */
+  /* padding-left: 25px;  */
+  /*padding-right: 25%; */
+  align-items: center;
+  grid-row: 1/2;
+  grid-column: 3/-3;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 72px;
+  width: 50%;
+}
+
+.logo2 {
+  /* width: 152px;
+  height: 152px; */
+  /* padding-left: 25px;  */
+  /*padding-right: 25%; */
+  align-items: center;
+  grid-row: 1/2;
+  grid-column: 3/-3;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  width: 50%;
+
+}
+
+.h1 {
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
+  font-family: 'Montserrat';
+  
+}
+.h2 {
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  margin-top: 8px;
+  color: #4F4F5E;
+
+}
+.h3 {
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+  font-family: 'Montserrat';
+  margin-top: 23px;
+  margin-bottom: 23px;
+}
+
+.hero-text {
+  grid-row: 2/3;
+  grid-column: 2/-2;
+  margin-top: 50px;
+}
+
+.bolus-button {
+  grid-row: 3/4;
+  grid-column: 2/-2;
+  margin-top: 25px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  padding-left: 35px;
+  
+}
+.settings-button {
+  grid-row: 4/5;
+  grid-column: 2/-2;
+  margin-top: 25px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  padding-left: 25px;
+}
+.graphic {
+  grid-row: 5/6;
+  grid-column: 2/-2;
+  margin-top: 50px;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.form {
+  grid-row: 2/3;
+  grid-column: 2/-2;
+  margin-top: 50px;
+}
+
+.setting {
+  grid-row: 3/4;
+  grid-column: 2/-2;
+  margin-top: 20px;
+}
+.saveB {
+  grid-row: 4/5;
+  grid-column: 3/-3;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  width: 100%;
+  border-top: 20px;
+  background-color: #65CAEB;
+  
+}
+.space {
+  height: 20px;
+}
+
+.calculator {
+  grid-row: 2/3;
+  grid-column: 2/-2;
+  margin-top: 50px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+.buttonO {
+  grid-row: 3/4;
+  grid-column: 2/-2;
+  margin-top: 50px;
+  margin-left: 95px;
+}
+.corr {
+  margin-left: 30px;
+}
+.form2 {
+  grid-row: 4/5;
+  grid-column: 2/-2;
+  margin-top: 50px;
+}
+.result {
+  height: 125px;
+  background-color: #65CAEB;
+}
